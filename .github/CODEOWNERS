@@ -1,0 +1,9 @@
+# Ramas main o master → solo este usuario puede aprobar
+/main/*    @Darlyn30
+/master/*  @Darlyn30
+
+# Rama dev → solo este usuario puede aprobar
+/dev/*     @Darlyn30
+
+#Frontend principal
+/front/*   @Darlyn30

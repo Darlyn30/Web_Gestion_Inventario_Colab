@@ -1,0 +1,2 @@
+#ignora dependencias tanto de front como de back
+/server/node_modules
