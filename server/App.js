@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
-const productoRoutes = require('./src/Routes/Producto.Routes');
+const ProductoRoutes = require('./src/Routes/Producto.Routes');
 const UsuarioRoutes = require('./src/Routes/Usuario.Routes');
+const ClienteRoutes = require("./src/Routes/Cliente.routes");
 const path = require('path');
 
 // Ruta al folder Client desde la raíz del proyecto
@@ -15,8 +16,10 @@ app.use(express.json());
 app.use(cors());
 
 // Rutas
-app.use('/api/productos', productoRoutes);
+app.use('/api/productos', ProductoRoutes);
 app.use('/api/usuarios', UsuarioRoutes);
+app.use("/api/clientes", ClienteRoutes);
+//este no es necesario ya que estamos trabajando con un json como db
 // app.use('/api/Db', dbConn);
 
 // Servir archivos estáticos (CSS, JS, imágenes, etc.)

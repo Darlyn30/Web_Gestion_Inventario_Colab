@@ -1,10 +1,2 @@
 #ignora dependencias tanto de front como de back
-#/server/node_modules
-#temporalmente comentado
-
-
-#ignorar todo para subirlo a la rama front
-/*
-
-!/Client
-!/Client/**
+/server/node_modules

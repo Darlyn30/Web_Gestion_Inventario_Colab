@@ -2,8 +2,6 @@
 const { esProductoValido } = require('../Interfaces/Producto.Interface'); // importamos la interface
 const fs = require('fs');
 const path = require('path');
-
-
 const rutaDb = path.join(__dirname, '../Migrations/DbFile.json');
 
 function leerDb(){
@@ -16,17 +14,6 @@ function escribirDb(data){
 }
 
 class ProductoService{
-    randomString(length){
-        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
-        if (!length) {
-            length = Math.floor(Math.random() * chars.length);
-        }
-        var str = '';
-        for (var i = 0; i < length; i++) {
-            str += chars[Math.floor(Math.random() * chars.length)];
-        }
-        return str;
-    }
 
     async crearProducto(Id, Name, Price, Description){
         const data = leerDb();

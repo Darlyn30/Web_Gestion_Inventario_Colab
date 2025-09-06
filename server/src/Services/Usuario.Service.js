@@ -28,7 +28,7 @@ class UsuarioService {
             const data = leerDb();
             const usuarios = data.Users;
 
-            //generamos nuevo ID
+            //generamos nuevo ID incrementado
             const nuevoId = usuarios.length > 0 ? usuarios[usuarios.length - 1].Id + 1 : 1;
 
             const usuarioInsertado = {
@@ -47,11 +47,56 @@ class UsuarioService {
     }
 
     async obtenerUsuarios(){
+        
+        const data = leerDb();
+        return data.Users;
+    }
+
+    async obtenerUsuariosPorId(id){
+
+        const data = leerDb();
+        const usuario = data.Users.find(item => item.Id === Number(id))
+        return usuario;
+    }
+
+    async editarUsuario(id, nuevosDatos){
         try {
             const data = leerDb();
-            return data.Users;
-        } catch (error) {
-            throw new Error('Error al obtener los usuarios del archivo JSON: ' + error.message);
+    
+            // Buscar el usuario
+            const index = data.Users.findIndex(u => u.Id === Number(id));
+            if (index === -1) {
+                throw new Error(`Usuario con id ${id} no encontrado`);
+            }
+    
+            // Actualizar los datos del usuario
+            data.Users[index] = { ...data.Users[index], ...nuevosDatos };
+    
+            // Guardar cambios
+            escribirDb(data);
+    
+            return { mensaje: `Usuario con id ${id} actualizado`, usuario: data.Users[index] };
+        } catch (err) {
+            throw new Error("Error al editar usuario: " + err.message);
+        }
+    }
+
+    async borrarUsuario(id){
+        try {
+            const data = leerDb();
+            const usuariosActualizados = data.Users.filter(u => u.Id !== Number(id));
+
+            if(usuariosActualizados.length === data.Users.length)
+                throw new Error("Usuario no encontrado");
+
+            //como estoy trabajando con un json y no una db, tengo que volver a escribir el json al eliminar el
+            // archivo
+            data.Users = usuariosActualizados;
+            escribirDb(data);
+
+            return {mensaje: `Usuario con el id ${id} eliminado`};
+        } catch(err){
+            throw new Error("Error al eliminar usuario: " + err.message);
         }
     }
 }
